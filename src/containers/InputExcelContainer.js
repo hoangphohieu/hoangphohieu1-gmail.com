@@ -11,6 +11,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getPCFail:(param)=>dispatch(actions.getPCFail(param)),
+        getPCProperties:(param)=>dispatch(actions.getPCProperties(param)),
         // stateStoreHomeToDefault:()=>dispatch(actions.stateStoreHomeToDefault()),
         
         

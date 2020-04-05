@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import XLSX from 'xlsx';
 import _ from 'lodash';
 import Bigtable from './BigTable';
+import * as type from "../constants";
 
 
 class InputExcel extends Component {
@@ -18,7 +19,21 @@ class InputExcel extends Component {
 
   //WARNING! To be deprecated in React v17. Use componentDidMount instead.
   componentWillMount() {
-    this.props.getPCFail();
+    this.props.getPCFail(type.URL_PC_FAIL);
+    this.props.getPCProperties(type.URL_PC_PROPERTIES);
+  }
+  componentDidUpdate() {
+    if (this.props.items.type === "GET_PC_FAIL_SUCSESS") { this.getPCFailSucsess() }
+    if (this.props.items.type === "GET_PC_PROPERTIES_SUCSESS") { this.getPCPropertiesSucsess() }
+
+    // console.log(this.props.items);
+
+  }
+  getPCFailSucsess = () => {
+    localStorage.setItem("PCFail", JSON.stringify(this.props.items.listItem));
+  }
+  getPCPropertiesSucsess = () => {
+    localStorage.setItem("PCProperties", JSON.stringify(this.props.items.listItem));
   }
 
 
@@ -61,8 +76,6 @@ class InputExcel extends Component {
 
 
   };
-
-
   readSingleFile = (e) => {
     let _this = this;
     let timeExcel = e.target.files[0].name;
@@ -115,7 +128,7 @@ class InputExcel extends Component {
 
 
   render() {
-    
+
 
     return (
       <div className="App ">
@@ -123,7 +136,7 @@ class InputExcel extends Component {
         <label htmlFor="fileinput" className="input_exel_file btn btn-warning">File Excel</label>
         <div id="dvExcel" />
 
-        <Bigtable itemsLocal={this.state.items} day={this.state.dayExcel} mounth={this.state.mouthExcel} {...this.props}/>
+        <Bigtable itemsLocal={this.state.items} day={this.state.dayExcel} mounth={this.state.mouthExcel} {...this.props} />
       </div>
     );
   }

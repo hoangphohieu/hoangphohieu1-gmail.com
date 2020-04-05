@@ -38,7 +38,7 @@ class DownText extends Component {
 
         let itemsNone = _.difference(allNameItems, this.state.arrNameFile);
         itemsNone = [...new Set(itemsNone)]
-        // console.log(itemsNone);
+        // console.log(itemNoPrint);
 
 
 
@@ -76,7 +76,7 @@ class DownText extends Component {
 
                         }
                     </div>
-                    {/* <div className="col-5">
+                    <div className="col-5">
                         {(itemNoPrint.length !== 0) ?
                             <table className="table table-striped table_amounts">
                                 <thead>
@@ -97,7 +97,7 @@ class DownText extends Component {
                             </table> : ""
 
                         }
-                    </div> */}
+                    </div>
                 </div>
 
 

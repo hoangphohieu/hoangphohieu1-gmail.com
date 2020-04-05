@@ -25,7 +25,10 @@ class BigTable extends Component {
 
 
             let items = this.props.itemsLocal;
-            let itemSheet = this.props.items.listItem;
+            let itemSheet = JSON.parse(localStorage.PCProperties);
+            let itemFail = JSON.parse(localStorage.PCFail);
+
+
             let itemCheck = [];
             let sumAmountBefore, sumAmountAfter, itemsFilter, itemThua;
             let amountAllPhoneCase = [];
@@ -265,86 +268,109 @@ class BigTable extends Component {
                               alert("alert")
                         }
                   }
-
+                  itemCheck = JSON.parse(JSON.stringify(items));
 
             } // het if param!==undefi param.namened
             arr = arr.filter(item => { return item.length > 0 });
             console.log(arr);
 
-            return (
-                  <React.Fragment>
-                        <button type="button" className="btn btn-primary mb-5 absolute inan" onClick={this.changePrint}>in ấn</button>
-                        {(this.state.changePrint === true) ? "" :
-                              <div>
-                                    <FilesNone dataNone={allFileName} {...this.props} />
-                                    <DownText dataMayInTo={arr} {...this.props} />
-                                    <h2>Tổng tất cả phôi: {sumAmountAfter + " / " + sumAmountBefore}</h2>
-                                    <h2>Số liệu bàn in: {arr.map(arr1 => <span className="so-lieu-ban">{arr1.length}</span>)}</h2>
-                                    <button type="button" className="btn btn-primary mb-5" onClick={this.changeScreen}>đổi theme</button>
-                                    <ItemThua itemsThua={itemThua} {...this.props} />
-                              </div>
-
+            itemFail = itemFail.filter(param4 => {
+                  return (param4.idDesign !== null && param4.phoneCase !== null)
+            })
+            let itemNotPrint = [];
+            {
+                  for (let k = 0; k < itemCheck.length; k++) {
+                        let itemC = [];
+                        for (let m = 0; m < itemFail.length; m++) {
+                              if ((itemFail[m].idDesign.toLowerCase().trim() === itemCheck[k].idDesign.toLowerCase().trim())
+                                    && (itemFail[m].phoneCase.trim().toLowerCase() === itemCheck[k].name.toLowerCase().trim())
+                              ) {
+                                    itemC.push({ ...itemCheck[k], code: itemFail[m].stt });
+                                    itemFail[m] = null;
+                                    break;
+                              }
                         }
-                        <BanTo itemsBanTo={arr} printScreen={this.state.printScreen} {...this.props} />
+                        itemFail = itemFail.filter(param3 => param3 !== null)
+                        if (itemC.length !== 0) {
+                              itemNotPrint.push(itemC[0]);
+                        }
+                  }
+console.log(itemNotPrint);
 
-                        <h2 style={{ textAlign: 'center', marginTop: 50 }}>Tổng tất cả: {sumAmountAfter + "/" + sumAmountBefore}</h2>
-                        <div className="row justify-content-center">
-                              <div className="col-5">
-
-                                    <table className="table table-striped table_amounts">
-                                          <thead>
-                                                <tr>
-                                                      <th scope="col">STT</th>
-                                                      <th scope="col">Tên</th>
-                                                      <th scope="col">Số lượng</th>
-                                                </tr>
-                                          </thead>
-                                          <tbody>
-                                                {amountAllPhoneCase}
-                                          </tbody>
-                                    </table>
-                              </div>
-                              <div className="col-5">
-                                    <div className="row justify-content-around">
-                                          <div className="col-3">
-                                                <table className="table  table_amounts">
-                                                      <thead>
-                                                            <tr>
-                                                                  <th scope="col">Tên</th>
-                                                            </tr>
-                                                      </thead>
-                                                      <tbody>
-                                                            {danhSach.map((param, key) => <tr key={key}>
-                                                                  <td className="cot_row">{param}</td>
-                                                            </tr>)}
-                                                      </tbody>
-                                                </table>
-                                          </div>
-                                          <div className="col-3">
-                                                <table className="table  table_amounts">
-                                                      <thead>
-                                                            <tr>
-                                                                  <th scope="col">Số lượng</th>
-                                                            </tr>
-                                                      </thead>
-                                                      <tbody>
-                                                            {danhsach2.map((param, key) => <tr key={key}>
-                                                                  <td className="cot_row">{param[1]}</td>
-                                                            </tr>)}
-                                                      </tbody>
-                                                </table>
-                                          </div>
+                  return (
+                        <React.Fragment>
+                              {/* <button type="button" className="btn btn-primary mb-5 absolute inan" onClick={this.changePrint}>in ấn</button> */}
+                              {(this.state.changePrint === true) ? "" :
+                                    <div>
+                                          <FilesNone dataNone={allFileName} itemNoPrint={itemNotPrint}  {...this.props} />
+                                          <DownText dataMayInTo={arr} {...this.props} />
+                                          <h2>Tổng tất cả phôi: {sumAmountAfter + " / " + sumAmountBefore}</h2>
+                                          <h2>Số liệu bàn in: {arr.map(arr1 => <span className="so-lieu-ban">{arr1.length}</span>)}</h2>
+                                          {/* <button type="button" className="btn btn-primary mb-5" onClick={this.changeScreen}>đổi theme</button> */}
+                                          <ItemThua itemsThua={itemThua} {...this.props} />
                                     </div>
 
+                              }
+                              <BanTo itemsBanTo={arr} printScreen={this.state.printScreen} {...this.props} />
+
+                              <h2 style={{ textAlign: 'center', marginTop: 50 }}>Tổng tất cả: {sumAmountAfter + "/" + sumAmountBefore}</h2>
+                              <div className="row justify-content-center">
+                                    <div className="col-5">
+
+                                          <table className="table table-striped table_amounts">
+                                                <thead>
+                                                      <tr>
+                                                            <th scope="col">STT</th>
+                                                            <th scope="col">Tên</th>
+                                                            <th scope="col">Số lượng</th>
+                                                      </tr>
+                                                </thead>
+                                                <tbody>
+                                                      {amountAllPhoneCase}
+                                                </tbody>
+                                          </table>
+                                    </div>
+                                    <div className="col-5">
+                                          <div className="row justify-content-around">
+                                                <div className="col-3">
+                                                      <table className="table  table_amounts">
+                                                            <thead>
+                                                                  <tr>
+                                                                        <th scope="col">Tên</th>
+                                                                  </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                  {danhSach.map((param, key) => <tr key={key}>
+                                                                        <td className="cot_row">{param}</td>
+                                                                  </tr>)}
+                                                            </tbody>
+                                                      </table>
+                                                </div>
+                                                <div className="col-3">
+                                                      <table className="table  table_amounts">
+                                                            <thead>
+                                                                  <tr>
+                                                                        <th scope="col">Số lượng</th>
+                                                                  </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                  {danhsach2.map((param, key) => <tr key={key}>
+                                                                        <td className="cot_row">{param[1]}</td>
+                                                                  </tr>)}
+                                                            </tbody>
+                                                      </table>
+                                                </div>
+                                          </div>
+
+
+                                    </div>
 
                               </div>
 
-                        </div>
 
-
-                  </React.Fragment>
-            );
+                        </React.Fragment>
+                  );
+            }
       }
 }
-
 export default BigTable;

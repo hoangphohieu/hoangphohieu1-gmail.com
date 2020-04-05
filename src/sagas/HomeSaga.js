@@ -4,14 +4,33 @@ import * as type from '../constants';
 
 function* getPCFail(param) {
       try {
-            let res1 = yield getByCustomAPI(param.payload); 
+            let res1 = yield getByCustomAPI(param.payload);
             yield put({
-                  type: type.GET_PC_FAIL_SUCSESS, 
+                  type: type.GET_PC_FAIL_SUCSESS,
                   payload: res1
             })
       } catch (error) {
             yield put({
-                  type: type.GET_PC_FAIL_RFAILURE,
+                  type: type.GET_API_RFAILURE,
+                  payload: {
+                        errorMessage: error.Message
+                  }
+            })
+      }
+}
+
+
+
+function* getPCProperties(param) {
+      try {
+            let res1 = yield getByCustomAPI(param.payload);
+            yield put({
+                  type: type.GET_PC_PROPERTIES_SUCSESS,
+                  payload: res1
+            })
+      } catch (error) {
+            yield put({
+                  type: type.GET_API_RFAILURE,
                   payload: {
                         errorMessage: error.Message
                   }
@@ -23,5 +42,6 @@ function* getPCFail(param) {
 export const HomeSaga = [
 
       takeEvery(type.GET_PC_FAIL_REQUEST, getPCFail),
+      takeEvery(type.GET_PC_PROPERTIES_REQUEST, getPCProperties),
 
 ];   

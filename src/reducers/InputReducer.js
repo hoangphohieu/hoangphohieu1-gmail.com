@@ -13,8 +13,8 @@ export default (state = DEFAULT_STATE, action) => {
       switch (action.type) {
 
             case type.GET_PC_FAIL_SUCSESS:
-                  console.log(action.payload);
-                  
+                  // console.log(action.payload);
+
                   return {
                         ...state,
                         isFetching: false,
@@ -25,19 +25,32 @@ export default (state = DEFAULT_STATE, action) => {
                         listItem: action.payload
                   }
 
-            case type.GET_PC_FAIL_RFAILURE:
+            case type.GET_PC_PROPERTIES_SUCSESS:
+                  // console.log(action.payload);
+
                   return {
                         ...state,
                         isFetching: false,
                         dataFetched: true,
                         error: false,
-                        type: "GET_PC_FAIL_RFAILURE",
+                        type: "GET_PC_PROPERTIES_SUCSESS",
                         errorMessesage: null,
                         listItem: action.payload
                   }
 
-     
-                  
+            case type.GET_API_RFAILURE:
+                  return {
+                        ...state,
+                        isFetching: false,
+                        dataFetched: true,
+                        error: false,
+                        type: "GET_API_RFAILURE",
+                        errorMessesage: null,
+                        listItem: action.payload
+                  }
+
+
+
             default:
                   return state;
       }

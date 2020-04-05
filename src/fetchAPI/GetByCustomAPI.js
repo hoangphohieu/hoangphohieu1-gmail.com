@@ -1,10 +1,11 @@
 import * as type from "../constants";
-export default function callAPi() {
+export default function callAPi(param) {
       // console.log(param);
 
       return new Promise((resolve, reject) => {
-            let url = type.URL_PC_FAIL ;
-            console.log("GetTacking",url);
+            let url =param ;
+            // let url = type.URL_PC_FAIL ;
+            // console.log("GetTacking",url);
 
 
             fetch(url, {
@@ -12,7 +13,7 @@ export default function callAPi() {
             })
                   .then(response => response.json())
                   .then(res => {
-                        console.log(res);
+                        // console.log(res);
 
                         resolve(res);
                   })

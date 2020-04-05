@@ -33,7 +33,7 @@ class DownText extends Component {
 
     return (
 
-      <button type="button" className="btn btn-warning mt-2" onClick={() => this.saveTextAsFile(strWrite)} style={{ color: "white" }}>Download Photoshop Reader</button>
+      <button type="button" className="btn btn-primary mt-2 dlp" onClick={() => this.saveTextAsFile(strWrite)} style={{ color: "white" }}>Download Photoshop Reader</button>
     );
   }
 }
