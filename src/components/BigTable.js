@@ -36,8 +36,10 @@ class BigTable extends Component {
             let dataSortItems = [];
             let arr = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
             let danhsach2 = [];
-            let danhSach = ["i6", "i6plus", "i7", "i7plus", "ix", "ixs", "ixr", "imax", "i11", "i11pro", "i11promax", "s7e", "s7", "s8", "s8plus", "note8", "s9", "s9plus", "note9", "s10e", "s10", "s10plus", "note10"
-                  , "note10plus", "sa50", "sa50s", "sa70", "sa6plus", "sj6plus", "of11", "of11pro", "oa5", "hp30", "hp30p", "hp20", "hp20p", "mate20p", "oneplus6"];
+            console.log(itemSheet);
+            let danhSach = itemSheet.map(itemSheet1 => itemSheet1.nameDefault);
+            // let danhSach = ["i6", "i6plus", "i7", "i7plus", "ix", "ixs", "ixr", "imax", "i11", "i11pro", "i11promax", "s7e", "s7", "s8", "s8plus", "note8", "s9", "s9plus", "note9", "s10e", "s10", "s10plus", "note10"
+            //       , "note10plus", "sa50", "sa50s", "sa70", "sa6plus", "sj6plus", "of11", "of11pro", "oa5", "hp30", "hp30p", "hp20", "hp20p", "mate20p", "oneplus6"];
 
             {
                   itemSheet = itemSheet.map(param => {
@@ -192,7 +194,9 @@ class BigTable extends Component {
                               else { return false }
                         })
                         if (dataToPixel1.length > 1) {
-                              alert("trên sheet có dòng đt bị lặp");
+                              alert("trên sheet có dòng đt bị lặp", dataToPixel1);
+                              console.log(dataToPixel1);
+
                               window.location.reload();
                         }
                         return { w: dataToPixel1[0][1], h: dataToPixel1[0][2] }
@@ -295,7 +299,7 @@ class BigTable extends Component {
                               itemNotPrint.push(itemC[0]);
                         }
                   }
-console.log(itemNotPrint);
+                  console.log(itemNotPrint);
 
                   return (
                         <React.Fragment>
@@ -313,10 +317,10 @@ console.log(itemNotPrint);
                               }
                               <BanTo itemsBanTo={arr} printScreen={this.state.printScreen} {...this.props} />
 
-                              <h2 style={{ textAlign: 'center', marginTop: 50 }}>Tổng tất cả: {sumAmountAfter + "/" + sumAmountBefore}</h2>
+
                               <div className="row justify-content-center">
                                     <div className="col-5">
-
+                                          <h2 style={{ textAlign: 'center', marginTop: 50 }}>Tổng tất cả: {sumAmountAfter + "/" + sumAmountBefore}</h2>
                                           <table className="table table-striped table_amounts">
                                                 <thead>
                                                       <tr>
@@ -331,6 +335,7 @@ console.log(itemNotPrint);
                                           </table>
                                     </div>
                                     <div className="col-5">
+                                    <h2 style={{ textAlign: 'center', marginTop: 50 }}>Tổng tất cả: {sumAmountAfter + "/" + sumAmountBefore}</h2>
                                           <div className="row justify-content-around">
                                                 <div className="col-3">
                                                       <table className="table  table_amounts">

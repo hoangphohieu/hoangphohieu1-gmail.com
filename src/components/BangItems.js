@@ -10,7 +10,7 @@ class Bang12Items extends Component {
       psdDone = () => { this.setState({ psdDone: true }) }
       render() {
             let items = this.props.itemsBang12Items;
-            // console.log(items);
+            console.log(items);
 
             let danhSachItem;
             if (items !== undefined) {
@@ -18,7 +18,7 @@ class Bang12Items extends Component {
                         <MotBanInTo
                               key={key}
                               idClient={item.idClient}
-                              phoneCase={item.phoneCase}
+                              phoneCase={item.name}
                               idDesign={item.idDesign}
                               amount={item.amount}
                               dayExcel={this.state.dayExcel}
